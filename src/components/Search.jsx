@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Display from './Display';
 class Search extends Component{
     constructor(props){
         super(props);
@@ -41,7 +41,7 @@ class Search extends Component{
             if (status === 400 || status === 500) {
                 console.log(result.error)
               } else {
-                this.setState({AllZips:result.data, Exist:true})//updates array and makes it so if the address is real Exist is true. 
+                this.setState({AllZips:result, Exist:true})//updates array and makes it so if the address is real Exist is true. 
                 console.log('array of state is updated')
             }
 
@@ -60,6 +60,7 @@ class Search extends Component{
                     <input type="text" onChange={this.onChange} value={City}></input>
                     <input type="submit"></input>
                 </form>
+                <Display zipCodes = {this.state.AllZips}/>
             </div>
         )
     }
