@@ -22,15 +22,19 @@ class Search extends Component{
         if(this.state.City === "" || !this.state.City){
             return(alert('Need a city to search zips!'))
         }
-        if(!/^[a-zA-Z]+$/.test(this.state.City)){
-            return(alert('This is not a city!'))
-        }
+        // if(!/^[a-zA-Z]+$/.test(this.state.City)){
+    
         this.fetchZipCodes()
         console.log("calling fetch to api")
+
+        // if(!this.state.Exist){
+        //     return(alert('This is not a city!'))
+        // }
     }
 
     fetchZipCodes = async() =>{
         try{
+            this.state.Exist = true;
             let CityGiven = this.state.City;
             console.log('this is the City: '+ CityGiven);
             let response = await fetch('http://ctp-zip-api.herokuapp.com/city/'+CityGiven, { method: 'GET'} )
@@ -47,6 +51,7 @@ class Search extends Component{
 
         }catch (error){
             console.log(error);
+            return(alert('This is not a city!'));
         }
     }
 
