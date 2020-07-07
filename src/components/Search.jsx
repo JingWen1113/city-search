@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Display from './Display';
 class Search extends Component{
     constructor(props){
         super(props);
@@ -22,15 +22,19 @@ class Search extends Component{
         if(this.state.City === "" || !this.state.City){
             return(alert('Need a city to search zips!'))
         }
-        if(!/^[a-zA-Z]+$/.test(this.state.City)){
-            return(alert('This is not a city!'))
-        }
+        // if(!/^[a-zA-Z]+$/.test(this.state.City)){
+    
         this.fetchZipCodes()
         console.log("calling fetch to api")
+
+        // if(!this.state.Exist){
+        //     return(alert('This is not a city!'))
+        // }
     }
 
     fetchZipCodes = async() =>{
         try{
+            this.state.Exist = true;
             let CityGiven = this.state.City;
             console.log('this is the City: '+ CityGiven);
             let response = await fetch('http://ctp-zip-api.herokuapp.com/city/'+CityGiven, { method: 'GET'} )
@@ -41,12 +45,13 @@ class Search extends Component{
             if (status === 400 || status === 500) {
                 console.log(result.error)
               } else {
-                this.setState({AllZips:result.data, Exist:true})//updates array and makes it so if the address is real Exist is true. 
+                this.setState({AllZips:result, Exist:true})//updates array and makes it so if the address is real Exist is true. 
                 console.log('array of state is updated')
             }
 
         }catch (error){
             console.log(error);
+            return(alert('This is not a city!'));
         }
     }
 
@@ -60,6 +65,7 @@ class Search extends Component{
                     <input type="text" onChange={this.onChange} value={City}></input>
                     <input type="submit"></input>
                 </form>
+                <Display zipCodes = {this.state.AllZips}/>
             </div>
         )
     }
