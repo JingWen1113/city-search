@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import Search from './components/Search';
+import React from "react";
+import "./App.css";
+import Search from "./components/Search";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-       Search City
-      <Search/>
+        Search City Zip Codes
+        <Search />
       </header>
     </div>
   );
